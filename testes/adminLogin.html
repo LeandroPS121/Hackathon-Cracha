@@ -9,54 +9,97 @@
 <body>
     <div class="cabecalho border border-dark"></div>
 
-    <!--Alinhamento-->
-    <div class="login-place alinha-tudo">
-
-        <!--Div que contém o Login-->
-        <div class="div-login border border-dark">
+    <div class="row login-divs position-relative mx-0 alinha-tudo mt-4">
+        <div class="div-login position-relative bg-light">
 
             <!--Logo da Bosch no cabeçalho-->
-            <div class="cabecalho-login alinha-tudo border border-dark">
+            <div class="cabecalho-login alinha-tudo">
                 <img src="imgs/bosch-logo.png" alt="bosch logo">
             </div>
 
             <form action="" class="formulario-login">
                 <!--Conteudo do Login-->
-                <div class="conteudo-login border border-dark">
+                <div class="conteudo-login">
 
                     <!--div que alinha verticalmente-->
-                    <div class="grupo-inputs">
+                    <div class="grupo-inputs position-relative">
                         <div class="row mx-0 mb-5 alinha-tudo">
                             <input class="col-6 input-padrao" type="text" placeholder="EDV">
                         </div>
                         <div class="row mx-0 alinha-tudo">
-                            <input class="col-6 input-padrao" type="password" placeholder="Password">
+                            <input id="password" class="col-6 input-padrao" type="password" placeholder="Password">
+                            <div class="col-1 olho-senha alinha-tudo position-absolute text-end border border-dark">
+                                <img id="eyeIcon" src="imgs/password1.png" onclick="togglePasswordVisibility()">
+                            </div>
+                        </div>
+                        <div class="row mx-0 text-center alinha-tudo mt-4">
+                            <a href="adminLogin.html" class="col-5">Forgot your password?</a>
+                        </div>
+                        <div class="row mx-0 position-relative alinha-btn alinha-tudo">
+                            <button class="btn-padrao col-6 input-padrao">Login</button>
                         </div>
                     </div>
                 </div>
-                <div class="rodape-login border border-dark"></div>
+                <div class="rodape-login"></div>
             </form>
         </div>
+
+        <img class="img-guy position-relative" src="imgs/guy.png"alt="">
     </div>
+
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('password');
+            var eyeIcon = document.getElementById('eyeIcon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.src = 'imgs/password1.png';
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.src = 'imgs/password2.png';
+            }
+        }
+    </script>
+
     <style>
+        *{
+            user-select: none;
+        }
         html body{
+            margin: 0;
+            padding: 0;
             height: 100vh;
+            overflow-x: hidden;
+            background-color: #EFEFEF;
         }
+        .olho-senha{
+            right: 80px;
+        }
+        .login-divs{
+            left: 10%;
+        }
+        .img-guy{
+            width: 400px;
+            height: 450px;
+        }
+        .alinha-btn{
+            top: 80px;
+        }
+        /* Cabeçalho onde ficará a faixa Bosch -- */
         .cabecalho{
-            height: 50px;
+            height: 5%;
         }
-        .login-place{
-            width: 1px;
-            height: 1px;
-            position: relative;
-            left: 50%;
-            top: 40%;
-        }
+        /* -------------------------------------- */
+
+        /* Div do formulário ----- */
         .div-login{
-            position: absolute;
             height: 670px;
             width: 540px;
         }
+        /* ----------------------- */
+
+        /* Partes do formulario -- */
         .cabecalho-login{
             height: 15%;
         }
@@ -69,17 +112,30 @@
         .formulario-login{
             height: 100%;
         }
+        /* ----------------------- */
+
+
+        /* Estilo padrão dos inputs */
         .input-padrao{
             height: 40px !important;
         }
+        .btn-padrao{
+            border: none;
+            color: white;
+            background-color: rgba(0, 85, 135, 1);
+        }
+        .grupo-inputs{
+            top: 20%;
+        }
+        /* ------------------------ */
+
+        /* d-flex alinhado */
         .alinha-tudo{
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .grupo-inputs{
-            margin-top: 20%;
-        }
+        /* --------------- */
     </style>
 </body>
 </html>
