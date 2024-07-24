@@ -15,9 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from cracha import views as cv
 
 urlpatterns = [
+    path('',cv.main_redirect),
     path('admin/', admin.site.urls),
-    path('colaborator-unit')
+    path('bosch-access/', include("cracha.urls"))
 ]
