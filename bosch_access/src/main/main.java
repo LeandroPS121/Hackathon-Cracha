@@ -206,7 +206,7 @@ public class main extends javax.swing.JDialog {
         jLUserOrPwError = new javax.swing.JLabel();
         jLGuy = new javax.swing.JLabel();
         jPHomeHrl = new javax.swing.JPanel();
-        jBCliente1 = new javax.swing.JButton();
+        jBRequestHrl = new javax.swing.JButton();
         jBHistoryHrl = new javax.swing.JButton();
         jPMenuLateralHrl = new javax.swing.JPanel();
         jBAbrirMenuLateralHrl = new javax.swing.JButton();
@@ -220,6 +220,12 @@ public class main extends javax.swing.JDialog {
         jBCancelarHistoryHrl2 = new javax.swing.JToggleButton();
         jBCancelarHistoryHrl3 = new javax.swing.JToggleButton();
         jBCalendarHistoryHrl = new javax.swing.JButton();
+        jPFormularioHrl = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(224, 226, 229));
@@ -399,14 +405,20 @@ public class main extends javax.swing.JDialog {
         jPHomeHrl.setMinimumSize(new java.awt.Dimension(0, 0));
         jPHomeHrl.setPreferredSize(new java.awt.Dimension(0, 0));
 
-        jBCliente1.setBackground(new java.awt.Color(140, 158, 177));
-        jBCliente1.addActionListener(new java.awt.event.ActionListener() {
+        jBRequestHrl.setBackground(new java.awt.Color(0, 110, 173));
+        jBRequestHrl.setFont(new java.awt.Font("Bosch Sans", 0, 18)); // NOI18N
+        jBRequestHrl.setForeground(new java.awt.Color(255, 255, 255));
+        jBRequestHrl.setText("Requests");
+        jBRequestHrl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBCliente1ActionPerformed(evt);
+                jBRequestHrlActionPerformed(evt);
             }
         });
 
-        jBHistoryHrl.setBackground(new java.awt.Color(140, 158, 177));
+        jBHistoryHrl.setBackground(new java.awt.Color(0, 110, 173));
+        jBHistoryHrl.setFont(new java.awt.Font("Bosch Sans", 0, 18)); // NOI18N
+        jBHistoryHrl.setForeground(new java.awt.Color(255, 255, 255));
+        jBHistoryHrl.setText("History");
         jBHistoryHrl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBHistoryHrlActionPerformed(evt);
@@ -434,9 +446,9 @@ public class main extends javax.swing.JDialog {
         jPMenuLateralHrlLayout.setHorizontalGroup(
             jPMenuLateralHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPMenuLateralHrlLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addComponent(jBAbrirMenuLateralHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPMenuLateralHrlLayout.setVerticalGroup(
             jPMenuLateralHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,7 +464,7 @@ public class main extends javax.swing.JDialog {
             jPHomeHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPHomeHrlLayout.createSequentialGroup()
                 .addContainerGap(103, Short.MAX_VALUE)
-                .addComponent(jBCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBRequestHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(71, 71, 71)
                 .addComponent(jBHistoryHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(394, 394, 394)
@@ -467,7 +479,7 @@ public class main extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPHomeHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBHistoryHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBRequestHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(220, 220, 220))
         );
 
@@ -625,6 +637,74 @@ public class main extends javax.swing.JDialog {
                 .addContainerGap(83, Short.MAX_VALUE))
         );
 
+        jPFormularioHrl.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel3.setBackground(new java.awt.Color(239, 241, 242));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/resources/IMAGES/bosch-logo.png"))); // NOI18N
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(0, 110, 173));
+        jButton2.setFont(new java.awt.Font("Bosch Sans", 0, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Enviadar");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(143, 143, 143)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(54, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(51, 51, 51))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(126, 126, 126)))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel2)
+                .addGap(131, 131, 131)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(69, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPFormularioHrlLayout = new javax.swing.GroupLayout(jPFormularioHrl);
+        jPFormularioHrl.setLayout(jPFormularioHrlLayout);
+        jPFormularioHrlLayout.setHorizontalGroup(
+            jPFormularioHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPFormularioHrlLayout.createSequentialGroup()
+                .addGap(331, 331, 331)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPFormularioHrlLayout.setVerticalGroup(
+            jPFormularioHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPFormularioHrlLayout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(111, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -633,6 +713,7 @@ public class main extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 1168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPFormularioHrl, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPHistoryHrl, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1160, Short.MAX_VALUE)
                         .addComponent(jPHomeHrl, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1160, Short.MAX_VALUE)))
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -650,6 +731,8 @@ public class main extends javax.swing.JDialog {
                 .addComponent(jPHomeHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPHistoryHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPFormularioHrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -694,9 +777,9 @@ public class main extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jBAbrirMenuLateralHrlActionPerformed
 
-    private void jBCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCliente1ActionPerformed
+    private void jBRequestHrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRequestHrlActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBCliente1ActionPerformed
+    }//GEN-LAST:event_jBRequestHrlActionPerformed
 
     private void jBHistoryHrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBHistoryHrlActionPerformed
         change_panel(jPHomeHrl, jPHistoryHrl);
@@ -721,6 +804,10 @@ public class main extends javax.swing.JDialog {
     private void jBCalendarHistoryHrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalendarHistoryHrlActionPerformed
         show_input_calendar();
     }//GEN-LAST:event_jBCalendarHistoryHrlActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -775,14 +862,17 @@ public class main extends javax.swing.JDialog {
     private javax.swing.JToggleButton jBCancelarHistoryHrl1;
     private javax.swing.JToggleButton jBCancelarHistoryHrl2;
     private javax.swing.JToggleButton jBCancelarHistoryHrl3;
-    private javax.swing.JButton jBCliente1;
     private javax.swing.JButton jBHistoryHrl;
+    private javax.swing.JButton jBRequestHrl;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLGuy;
     private javax.swing.JLabel jLHideUnhide;
     private javax.swing.JLabel jLUserOrPwError;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPBox;
+    private javax.swing.JPanel jPFormularioHrl;
     private javax.swing.JPanel jPHeader;
     private javax.swing.JPanel jPHistoryHrl;
     private javax.swing.JPanel jPHomeHrl;
@@ -790,9 +880,12 @@ public class main extends javax.swing.JDialog {
     private javax.swing.JPanel jPMenuLateralHrl;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTEDV;
     private javax.swing.JPasswordField jTPassword;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
