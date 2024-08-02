@@ -4,7 +4,7 @@
  */
 package SCREENS;
 
-import MODULO_INICIAL.Main;
+import MAIN.Main;
 import RESOURCES.Resources;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Dimension;
@@ -23,13 +23,22 @@ import javax.swing.table.TableRowSorter;
  * @author sil9jvl
  */
 public class History extends javax.swing.JDialog {
-
+    private DefaultTableModel tabela;
     /**
      * Creates new form History
      */
     public History(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        // Cria o modelo da tabela
+        tabela = (DefaultTableModel) jTTable.getModel();
+        tabela.setNumRows(0);
+        
+        // Atribui informações de teste na tabela
+        tabela.addRow(new Object[]{"1","12/12/2024 14:00:00", "teste", "Robert Bosch", "COMPLETED"});
+        tabela.addRow(new Object[]{"1","08/12/2024 10:00:00", "teste", "Robert Bosch", "PENDING"});
+        tabela.addRow(new Object[]{"1","12/12/2024 14:00:00", "teste", "Robert Bosch", "CANCELED"});
         tableFiltered(0);
     }
 
@@ -39,16 +48,7 @@ public class History extends javax.swing.JDialog {
         if(n != 4){
             jTSelectedDate.setText("");
         }
-        
-        // Cria o modelo da tabela
-        DefaultTableModel tabela = (DefaultTableModel) jTTable.getModel();
-        tabela.setNumRows(0);
-        
-        // Atribui informações de teste na tabela
-        tabela.addRow(new Object[]{"1","12/12/2024 14:00:00", "teste", "Robert Bosch", "COMPLETED"});
-        tabela.addRow(new Object[]{"1","08/12/2024 10:00:00", "teste", "Robert Bosch", "PENDING"});
-        tabela.addRow(new Object[]{"1","12/12/2024 14:00:00", "teste", "Robert Bosch", "CANCELED"});
-        
+
         TableRowSorter sorter = new TableRowSorter(tabela);
         jTTable.setRowSorter(sorter);
         
@@ -142,11 +142,10 @@ public class History extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jPHeader = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1160, 730));
         setMinimumSize(new java.awt.Dimension(1160, 730));
-        setPreferredSize(new java.awt.Dimension(1160, 730));
         setResizable(false);
 
         jPContainer.setBackground(new java.awt.Color(224, 226, 229));
@@ -378,19 +377,22 @@ public class History extends javax.swing.JDialog {
         );
 
         jPHeader.setBackground(new java.awt.Color(239, 241, 242));
-        jPHeader.setMaximumSize(new java.awt.Dimension(1160, 100));
-        jPHeader.setMinimumSize(new java.awt.Dimension(1160, 100));
-        jPHeader.setPreferredSize(new java.awt.Dimension(1160, 100));
+        jPHeader.setMaximumSize(new java.awt.Dimension(0, 0));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/header-bosch.png"))); // NOI18N
+        jLabel4.setMaximumSize(new java.awt.Dimension(0, 0));
+        jLabel4.setMinimumSize(new java.awt.Dimension(0, 0));
+        jLabel4.setPreferredSize(new java.awt.Dimension(0, 0));
 
         javax.swing.GroupLayout jPHeaderLayout = new javax.swing.GroupLayout(jPHeader);
         jPHeader.setLayout(jPHeaderLayout);
         jPHeaderLayout.setHorizontalGroup(
             jPHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPHeaderLayout.setVerticalGroup(
             jPHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPContainerLayout = new javax.swing.GroupLayout(jPContainer);
@@ -407,7 +409,7 @@ public class History extends javax.swing.JDialog {
             jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPContainerLayout.createSequentialGroup()
                 .addComponent(jPHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(22, 22, 22)
                 .addComponent(jPTableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
@@ -478,6 +480,7 @@ public class History extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -504,6 +507,7 @@ public class History extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPContainer;
     private javax.swing.JPanel jPHeader;
     private javax.swing.JPanel jPTableContainer;

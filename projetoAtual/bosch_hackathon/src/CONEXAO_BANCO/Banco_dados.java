@@ -18,7 +18,7 @@ public class Banco_dados {
     private final String nomedobanco = "bosch_access";
     private final String local = "jdbc:mysql://localhost:3306/" +nomedobanco;
     private final String login = "root";
-    private final String senha = "root";
+    private final String senha = "$root10$";
     
     public boolean getConnection() {
         try{
