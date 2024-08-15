@@ -4,10 +4,17 @@
  */
 package RESOURCES;
 
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 /**
  *
  * @author sil9jvl
  */
 public class Resources {
-    
+
+    public static boolean isNumeric(String str) {
+        return str != null && str.matches("\\d+");
+    }
+
 }

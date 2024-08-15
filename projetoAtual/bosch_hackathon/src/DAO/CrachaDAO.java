@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import OBJECTS.Colaborador;
 import OBJECTS.Cracha;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,5 +15,7 @@ import javax.swing.table.DefaultTableModel;
 public interface CrachaDAO {
     void addCracha(Cracha cracha);
     void loadCrachas(DefaultTableModel table);
-    boolean updateCracha(String edv,String badge);
+    void verifyCrachaUsed(String edv,String badge);
+    void disableBadge(String edv);
+    Cracha getBadgeUsedByCol(Colaborador colaborador);
 }

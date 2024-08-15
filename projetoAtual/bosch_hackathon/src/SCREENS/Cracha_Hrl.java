@@ -145,9 +145,7 @@ public class Cracha_Hrl extends javax.swing.JDialog {
         if(jTAssociateBadgeCode.getText().equals("")||jTAssociateBadgeOwner.getText().equals("")){
             JOptionPane.showMessageDialog(null,"Fill in all the fields!");
         }else{
-            boolean verify = crachaDAO.updateCracha(jTAssociateBadgeCode.getText(), jTAssociateBadgeOwner.getText());
-        if(verify){
-        }
+            crachaDAO.verifyCrachaUsed(jTAssociateBadgeOwner.getText(), jTAssociateBadgeCode.getText());
         }
         
         
@@ -202,6 +200,8 @@ public class Cracha_Hrl extends javax.swing.JDialog {
         }
         return false;
     }
+    
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -345,9 +345,11 @@ public class Cracha_Hrl extends javax.swing.JDialog {
         jLChangeLabel.setText("Remove Badge From");
 
         jTChangeBadgeOwner.setFont(new java.awt.Font("Bosch Sans", 0, 14)); // NOI18N
+        jTChangeBadgeOwner.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTChangeBadgeOwner.setEnabled(false);
 
         jTChangeBadgeCode.setFont(new java.awt.Font("Bosch Sans", 0, 14)); // NOI18N
+        jTChangeBadgeCode.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTChangeBadgeCode.setEnabled(false);
 
         jBChangeBadgeConfirm.setBackground(new java.awt.Color(0, 110, 173));
@@ -602,8 +604,8 @@ public class Cracha_Hrl extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPColLayout.createSequentialGroup()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));
@@ -653,29 +655,23 @@ public class Cracha_Hrl extends javax.swing.JDialog {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPCol, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(16, 16, 16))
+                    .addComponent(jPCol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPCol, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addComponent(jPCol, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPContainerLayout = new javax.swing.GroupLayout(jPContainer);
@@ -685,6 +681,7 @@ public class Cracha_Hrl extends javax.swing.JDialog {
             .addGroup(jPContainerLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPAssociateBadgePainel, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPContainerLayout.createSequentialGroup()
                         .addGroup(jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPChangeBadgePainel, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -696,14 +693,12 @@ public class Cracha_Hrl extends javax.swing.JDialog {
                                     .addComponent(jPCreateBadgePainel, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jPOptionBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jPOptionsContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jBBack))
+                                        .addComponent(jPOptionsContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPContainerLayout.createSequentialGroup()
-                        .addComponent(jPAssociateBadgePainel, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jBBack)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPContainerLayout.setVerticalGroup(
             jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -713,12 +708,13 @@ public class Cracha_Hrl extends javax.swing.JDialog {
                     .addGroup(jPContainerLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPOptionsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPOptionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(191, 191, 191)
-                        .addComponent(jBBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGroup(jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPContainerLayout.createSequentialGroup()
+                                .addComponent(jPOptionsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPOptionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jBBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(265, 265, 265)
                         .addComponent(jPCreateBadgePainel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -802,6 +798,8 @@ public class Cracha_Hrl extends javax.swing.JDialog {
     }//GEN-LAST:event_jBAssociateBadgeActionPerformed
 
     private void jBChangeBadgeConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBChangeBadgeConfirmActionPerformed
+        
+        crachaDAO.disableBadge(jTChangeBadgeCode.getText());
         tabela.setNumRows(0);
         crachaDAO.loadCrachas(tabela);
     }//GEN-LAST:event_jBChangeBadgeConfirmActionPerformed
@@ -815,9 +813,12 @@ public class Cracha_Hrl extends javax.swing.JDialog {
     }//GEN-LAST:event_jBCreateBadgeConfirmActionPerformed
 
     private void jBAssociateBadgeConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAssociateBadgeConfirmActionPerformed
+        associate();
+        jTAssociateBadgeOwner.setText("");
+        jTAssociateBadgeCode.setText("");
         tabela.setNumRows(0);
         crachaDAO.loadCrachas(tabela);
-        associate();
+        
     }//GEN-LAST:event_jBAssociateBadgeConfirmActionPerformed
 
     private void jBBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBackActionPerformed

@@ -12,4 +12,5 @@ import OBJECTS.Local;
  */
 public interface LocalDAO {
     Local getLocal(int id);
+    void asignLocals(String badgeCode,String[] locals);
 }

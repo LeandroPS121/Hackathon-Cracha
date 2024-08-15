@@ -36,4 +36,23 @@ public class LocalDAOImpl implements LocalDAO {
         }
         return null;
     }
+
+    public void asignLocals(String badgeCode,String[] locals) {
+        String query = "INSERT INTO acesso (cr.fk_idCracha,fk_idLocal) values (?,?)";
+        for (String loc : locals) {
+
+            if (bd.getConnection()) {
+                try {
+                    PreparedStatement stmt = bd.conexao.prepareStatement(query);
+                    stmt.setString(1, badgeCode);
+                    stmt.setString(2, loc);
+                    stmt.executeUpdate();
+                    stmt.close();
+                    bd.conexao.close();
+                }catch(SQLException e){
+                    System.out.println(e);
+                }
+            }
+        }
+    }
 }

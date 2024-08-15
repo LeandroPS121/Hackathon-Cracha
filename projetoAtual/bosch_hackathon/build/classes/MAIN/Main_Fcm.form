@@ -72,7 +72,7 @@
           <Group type="103" groupAlignment="1" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="860" max="-2" attributes="0"/>
-                  <Component id="jPOptions" min="-2" pref="300" max="-2" attributes="0"/>
+                  <Component id="jPOptions" min="-2" max="-2" attributes="0"/>
               </Group>
               <Component id="jPHeader" alignment="0" max="32767" attributes="0"/>
           </Group>
@@ -82,7 +82,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jPHeader" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPOptions" min="-2" pref="643" max="-2" attributes="0"/>
+                  <Component id="jPOptions" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -104,9 +104,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jBHistory1" min="-2" pref="272" max="-2" attributes="0"/>
-                          <Component id="jBRequest1" min="-2" pref="272" max="-2" attributes="0"/>
                           <Component id="jBHistory" min="-2" pref="272" max="-2" attributes="0"/>
+                          <Component id="jBHistory1" min="-2" pref="272" max="-2" attributes="0"/>
                           <Component id="jBRequest" min="-2" pref="272" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="14" max="32767" attributes="0"/>
@@ -118,11 +117,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="jBRequest" min="-2" pref="70" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="jBRequest1" min="-2" pref="70" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                       <Component id="jBHistory" min="-2" pref="70" max="-2" attributes="0"/>
-                      <EmptySpace pref="242" max="32767" attributes="0"/>
+                      <EmptySpace pref="316" max="32767" attributes="0"/>
                       <Component id="jBHistory1" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
@@ -143,6 +140,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Manage External Worker"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBRequestActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jBHistory">
               <Properties>
@@ -160,20 +160,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBHistoryActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jBRequest1">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ad" green="6e" red="0" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Bosch Sans" size="18" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Request"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jBHistory1">
               <Properties>

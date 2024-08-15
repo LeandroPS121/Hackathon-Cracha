@@ -16,6 +16,12 @@ public class TerceirizadoDAOImpl implements TerceirizadoDAO {
 
     Banco_dados bd = new Banco_dados();
 
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @Override
     public Terceirizado getTerceirizadoById(int id) {
         if (bd.getConnection()) {
             try {
@@ -30,7 +36,8 @@ public class TerceirizadoDAOImpl implements TerceirizadoDAO {
                             rs.getString("cpfTerceirizado"),
                             rs.getString("nomeCompletoTerceirizado"),
                             rs.getString("empresaTerceirizado"),
-                            rs.getString("areaAtuacao")
+                            rs.getString("areaAtuacao"),
+                            rs.getString("locaisSelecionadoChamado")
                     );
                     
                     return terceirizado;
@@ -43,15 +50,20 @@ public class TerceirizadoDAOImpl implements TerceirizadoDAO {
         return null;
     }
     
-    public void addTerceirizado(Terceirizado terceirizado, String[] locals){
+    /**
+     *
+     * @param terceirizado
+     */
+    @Override
+    public void addTerceirizado(Terceirizado terceirizado){
         String query="INSERT INTO terceirizado (cpfTerceirizado,nomeCompletoTerceirizado,empresaTerceirizado,areaAtuacaoTerceirizado) VALUES (?,?,?,?)";
         if(bd.getConnection()){
             try{
                 PreparedStatement stmt = bd.conexao.prepareStatement(query);
                 stmt.setString(1,terceirizado.getCpf());
-                stmt.setString(1,terceirizado.getNomeCompleto());
-                stmt.setString(1,terceirizado.getEmpresa());
-                stmt.setString(1,terceirizado.getAreaAtuacao());
+                stmt.setString(2,terceirizado.getNomeCompleto());
+                stmt.setString(3,terceirizado.getEmpresa());
+                stmt.setString(4,terceirizado.getAreaAtuacao());
                 stmt.executeUpdate();
                 stmt.close();
                 bd.conexao.close();
@@ -61,4 +73,6 @@ public class TerceirizadoDAOImpl implements TerceirizadoDAO {
             }
         }
     }
+    
+  
 }

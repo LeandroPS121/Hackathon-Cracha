@@ -5,6 +5,7 @@
 package MAIN;
 
 import SCREENS.History;
+import SCREENS.Terceirizado_Fcm;
 
 /**
  *
@@ -33,7 +34,6 @@ public class Main_Fcm extends javax.swing.JDialog {
         jPOptions = new javax.swing.JPanel();
         jBRequest = new javax.swing.JButton();
         jBHistory = new javax.swing.JButton();
-        jBRequest1 = new javax.swing.JButton();
         jBHistory1 = new javax.swing.JButton();
         jPHeader = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -54,6 +54,11 @@ public class Main_Fcm extends javax.swing.JDialog {
         jBRequest.setFont(new java.awt.Font("Bosch Sans", 0, 18)); // NOI18N
         jBRequest.setForeground(new java.awt.Color(255, 255, 255));
         jBRequest.setText("Manage External Worker");
+        jBRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBRequestActionPerformed(evt);
+            }
+        });
 
         jBHistory.setBackground(new java.awt.Color(0, 110, 173));
         jBHistory.setFont(new java.awt.Font("Bosch Sans", 0, 18)); // NOI18N
@@ -64,11 +69,6 @@ public class Main_Fcm extends javax.swing.JDialog {
                 jBHistoryActionPerformed(evt);
             }
         });
-
-        jBRequest1.setBackground(new java.awt.Color(0, 110, 173));
-        jBRequest1.setFont(new java.awt.Font("Bosch Sans", 0, 18)); // NOI18N
-        jBRequest1.setForeground(new java.awt.Color(255, 255, 255));
-        jBRequest1.setText("Request");
 
         jBHistory1.setBackground(new java.awt.Color(0, 110, 173));
         jBHistory1.setFont(new java.awt.Font("Bosch Sans", 0, 18)); // NOI18N
@@ -87,9 +87,8 @@ public class Main_Fcm extends javax.swing.JDialog {
             .addGroup(jPOptionsLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBHistory1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBRequest1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBHistory1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -98,11 +97,9 @@ public class Main_Fcm extends javax.swing.JDialog {
             .addGroup(jPOptionsLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jBRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jBRequest1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(56, 56, 56)
                 .addComponent(jBHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 316, Short.MAX_VALUE)
                 .addComponent(jBHistory1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
@@ -132,7 +129,7 @@ public class Main_Fcm extends javax.swing.JDialog {
             jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPContainerLayout.createSequentialGroup()
                 .addGap(860, 860, 860)
-                .addComponent(jPOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPHeader, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPContainerLayout.setVerticalGroup(
@@ -140,7 +137,7 @@ public class Main_Fcm extends javax.swing.JDialog {
             .addGroup(jPContainerLayout.createSequentialGroup()
                 .addComponent(jPHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,6 +175,12 @@ public class Main_Fcm extends javax.swing.JDialog {
         this.dispose();
         login.setVisible(true);
     }//GEN-LAST:event_jBHistory1ActionPerformed
+
+    private void jBRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRequestActionPerformed
+        Terceirizado_Fcm terceirizado_fcm = new Terceirizado_Fcm(null,true);
+        this.dispose();
+        terceirizado_fcm.setVisible(true);
+    }//GEN-LAST:event_jBRequestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,6 +223,22 @@ public class Main_Fcm extends javax.swing.JDialog {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -240,7 +259,6 @@ public class Main_Fcm extends javax.swing.JDialog {
     private javax.swing.JButton jBHistory;
     private javax.swing.JButton jBHistory1;
     private javax.swing.JButton jBRequest;
-    private javax.swing.JButton jBRequest1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPContainer;
     private javax.swing.JPanel jPHeader;

@@ -16,4 +16,5 @@ public interface ColaboradorDAO {
     Colaborador getColaboradorByEdv(String edv);
     Colaborador getColaboradorByName(String name);
     void loadColaborador(DefaultTableModel table);
+    void checkColaboradorTable(String edvOrName ,DefaultTableModel table);
 }

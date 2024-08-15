@@ -12,5 +12,5 @@ import OBJECTS.Terceirizado;
  */
 public interface TerceirizadoDAO {
     Terceirizado getTerceirizadoById(int id);
-    void addTerceirizado(Terceirizado terceirizado, String[] locals);
+    void addTerceirizado(Terceirizado terceirizado);
 }

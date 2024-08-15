@@ -6,8 +6,7 @@ package DAO;
 
 import CONEXAO_BANCO.Banco_dados;
 import OBJECTS.Access;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *

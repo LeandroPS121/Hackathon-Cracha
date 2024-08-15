@@ -4,9 +4,7 @@
  */
 package CONEXAO_BANCO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *
@@ -18,7 +16,7 @@ public class Banco_dados {
     private final String nomedobanco = "bosch_access";
     private final String local = "jdbc:mysql://localhost:3306/" +nomedobanco;
     private final String login = "root";
-    private final String senha = "root";
+    private final String senha = "$root10$";
     
     public boolean getConnection() {
         try{

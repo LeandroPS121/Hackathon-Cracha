@@ -4,11 +4,15 @@
  */
 package SCREENS;
 
+import DAO.LocalDAO;
+import DAO.LocalDAOImpl;
 import DAO.TerceirizadoDAO;
 import DAO.TerceirizadoDAOImpl;
-import MAIN.Main_Fcm;
 import OBJECTS.Terceirizado;
+import RESOURCES.Resources;
+import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -17,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class Terceirizado_Fcm extends javax.swing.JDialog {
 
     private DefaultTableModel tabela;
+    LocalDAO localDAO = new LocalDAOImpl();
 
     /**
      * Creates new form Terceirizado
@@ -56,7 +61,28 @@ public class Terceirizado_Fcm extends javax.swing.JDialog {
         });
 
     }
+    
+    private boolean checkLocals(String[] locs){
+        
+        Arrays.sort(locs);
+        for (int i = 1; i < locs.length; i++) {
+            if (locs[i].equals(locs[i - 1])) {
+                return false;  // Encontrou um duplicado
+            }
+        }
+        return true;
+    }
 
+    
+    private void saveLocals(){
+        String[] locs =  jTLocals.getText().split("\\s*,\\s*");
+        boolean chk = checkLocals(locs);
+        if(chk){
+            
+        }
+    }
+    
+    
     private void createTerceirizado() {
 
         Terceirizado terceirizado = new Terceirizado(
@@ -64,13 +90,14 @@ public class Terceirizado_Fcm extends javax.swing.JDialog {
                 jTCpf.getText(),
                 jTNome.getText(),
                 jTEmpresa.getText(),
-                jTAreaAtuacao.getText()
+                jTAreaAtuacao.getText(),
+                jTLocals.getText()
         );
         
-        String[] locals =  jTLocals.getText().split("\\s*,\\s*");
+        //String[] locals =  jTLocals.getText().split("\\s*,\\s*");
 
         TerceirizadoDAO terceirizadoDAO = new TerceirizadoDAOImpl();
-        terceirizadoDAO.addTerceirizado(terceirizado, locals);
+        terceirizadoDAO.addTerceirizado(terceirizado);
     }
 
     /**
@@ -98,13 +125,9 @@ public class Terceirizado_Fcm extends javax.swing.JDialog {
         jBCreateBadgeConfirm = new javax.swing.JButton();
         jTLocals = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel9 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableLocals = new javax.swing.JTable();
-        jBBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -159,8 +182,16 @@ public class Terceirizado_Fcm extends javax.swing.JDialog {
             }
         });
 
+        jTLocals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTLocalsActionPerformed(evt);
+            }
+        });
+
         jLabel10.setFont(new java.awt.Font("Bosch Sans", 0, 18)); // NOI18N
         jLabel10.setText("Locals");
+
+        jLabel5.setText("Ir para request");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -171,9 +202,9 @@ public class Terceirizado_Fcm extends javax.swing.JDialog {
                 .addComponent(jLabel1)
                 .addGap(129, 129, 129))
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel3)
@@ -185,11 +216,13 @@ public class Terceirizado_Fcm extends javax.swing.JDialog {
                                 .addComponent(jTEmpresa, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jTNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTLocals, javax.swing.GroupLayout.Alignment.LEADING))))
+                                .addComponent(jTLocals, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addContainerGap(25, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jBCreateBadgeConfirm)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addComponent(jBCreateBadgeConfirm)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addGap(41, 41, 41))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,39 +249,12 @@ public class Terceirizado_Fcm extends javax.swing.JDialog {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTLocals, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jBCreateBadgeConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBCreateBadgeConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(23, 23, 23))
         );
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTable1.setBackground(new java.awt.Color(236, 236, 236));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "CPF", "Name", "Corporation", "Area of Specialization"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(2).setHeaderValue("Corporation");
-            jTable1.getColumnModel().getColumn(3).setHeaderValue("Area of Specialization");
-        }
-
-        jLabel9.setFont(new java.awt.Font("Bosch Sans", 0, 18)); // NOI18N
-        jLabel9.setText("External Worker List");
 
         jTableLocals.setBackground(new java.awt.Color(236, 236, 236));
         jTableLocals.setModel(new javax.swing.table.DefaultTableModel(
@@ -270,71 +276,27 @@ public class Terceirizado_Fcm extends javax.swing.JDialog {
         jTableLocals.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTableLocals);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(265, 265, 265)
-                .addComponent(jLabel9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 42, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
-        );
-
-        jBBack.setBackground(new java.awt.Color(0, 110, 173));
-        jBBack.setFont(new java.awt.Font("Bosch Sans", 0, 18)); // NOI18N
-        jBBack.setForeground(new java.awt.Color(255, 255, 255));
-        jBBack.setText("Back");
-        jBBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBBackActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBBack))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBBack, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 5, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -352,15 +314,13 @@ public class Terceirizado_Fcm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCreateBadgeConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCreateBadgeConfirmActionPerformed
-
+        createTerceirizado();
 
     }//GEN-LAST:event_jBCreateBadgeConfirmActionPerformed
 
-    private void jBBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBackActionPerformed
-        Main_Fcm main = new Main_Fcm(null,true);
-        this.dispose();
-        main.setVisible(true);
-    }//GEN-LAST:event_jBBackActionPerformed
+    private void jTLocalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTLocalsActionPerformed
+        
+    }//GEN-LAST:event_jTLocalsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -408,28 +368,24 @@ public class Terceirizado_Fcm extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBBack;
     private javax.swing.JButton jBCreateBadgeConfirm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPHeader;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTAreaAtuacao;
     private javax.swing.JTextField jTCpf;
     private javax.swing.JTextField jTEmpresa;
     private javax.swing.JTextField jTLocals;
     private javax.swing.JTextField jTNome;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableLocals;
     // End of variables declaration//GEN-END:variables
 }

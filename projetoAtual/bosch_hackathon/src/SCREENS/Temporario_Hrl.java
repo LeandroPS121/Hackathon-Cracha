@@ -1,12 +1,16 @@
 package SCREENS;
 
-
+import DAO.ChamadoDAO;
+import DAO.ChamadoDAOImpl;
 import DAO.ColaboradorDAO;
 import DAO.ColaboradorDAOImpl;
 import DAO.CrachaDAO;
 import DAO.CrachaDAOImpl;
 import MAIN.*;
 import OBJECTS.Colaborador;
+import OBJECTS.Cracha;
+import RESOURCES.Resources;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -15,60 +19,79 @@ import javax.swing.table.TableRowSorter;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-
 /**
  *
  * @author olf5jvl
  */
 public class Temporario_Hrl extends javax.swing.JDialog {
+
     private DefaultTableModel tabela;
+    private DefaultTableModel tabelaCol;
     private ColaboradorDAO colaboradorDAO = new ColaboradorDAOImpl();
     private CrachaDAO crachaDAO = new CrachaDAOImpl();
-    
-  
+    private ChamadoDAO chamadoDAO = new ChamadoDAOImpl();
+
     public Temporario_Hrl(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        initTable();
+        refreshTable();
         initTableListener();
+        initTableCol();
     }
-    
-    
-    public void searchColaborator(){
-         Colaborador colaborador = colaboradorDAO.getColaboradorByEdv(jTEDVorNameSearchHrl.getText());
-        if (colaborador != null){
-            jTEDVTemporaryHrl.setText(colaborador.getEdv());
+
+    private void searchColaborator() {
+        updateTable();
+        Colaborador colaborador = colaboradorDAO.getColaboradorByEdv(jTEDVorNameSearchHrl.getText());
+        if (colaborador != null) {
             System.out.println(colaborador.getNomeCompleto());
             jTMsgTemporaryHrl.setText("Collaborator found!");
-        } else{
+        } else {
             colaborador = colaboradorDAO.getColaboradorByName(jTEDVorNameSearchHrl.getText());
-            if (colaborador != null){
+            if (colaborador != null) {
                 System.out.println(colaborador.getNomeCompleto());
                 jTMsgTemporaryHrl.setText("Collaborator found!");
-            }else{
-                  jTMsgTemporaryHrl.setText("Collaborator not found!");
+            } else {
+                jTMsgTemporaryHrl.setText("Collaborator not found!");
             }
         }
     }
 
-    public void initTable(){
+    private void requestTemp() {
+        if (Resources.isNumeric(jTEDVTemporaryHrl.getText()) && Resources.isNumeric(jTBadgeCodeHrl.getText())) {
+            chamadoDAO.sendTempChamado(
+                    jTEDVTemporaryHrl.getText(),
+                    jTBadgeCodeHrl.getText(),
+                    Integer.parseInt(jComboBox1.getSelectedItem().toString())
+            );
+            Colaborador col = colaboradorDAO.getColaboradorByEdv(jTEDVTemporaryHrl.getText());
+            crachaDAO.verifyCrachaUsed(col.getEdv(),jTBadgeCodeHrl.getText());
+        }else{
+            JOptionPane.showMessageDialog(null,"Insert all Fields!");
+        }
+    }
+
+    private void updateTable() {
+        tabelaCol = (DefaultTableModel) jTable1.getModel();
+        colaboradorDAO.checkColaboradorTable(jTEDVorNameSearchHrl.getText(), tabelaCol);
+    }
+
+    private void refreshTable() {
         tabela = (DefaultTableModel) jTable2.getModel();
         crachaDAO.loadCrachas(tabela);
     }
-    
+
     private void filterBadgeTable() {
 
         TableRowSorter sorter = new TableRowSorter(tabela);
         jTable2.setRowSorter(sorter);
-        
-        
+
         RowFilter<Object, Object> rowFilter = RowFilter.regexFilter("UNUSED", 1);
-        if(!jCBUnusedTemporaryHrl.isSelected()){
-            rowFilter=null;
+        if (!jCBUnusedTemporaryHrl.isSelected()) {
+            rowFilter = null;
         }
         sorter.setRowFilter(rowFilter);
     }
-    
+
     private void initTableListener() {
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -81,7 +104,20 @@ public class Temporario_Hrl extends javax.swing.JDialog {
             }
         });
     }
-   
+
+    private void initTableCol() {
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int selectedRow = jTable1.getSelectedRow();
+                if (selectedRow != -1) {
+                    jTEDVTemporaryHrl.setText(jTable1.getValueAt(selectedRow, 1).toString());
+
+                }
+            }
+        });
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -169,10 +205,11 @@ public class Temporario_Hrl extends javax.swing.JDialog {
             }
         });
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(249, 249, 249));
         jPanel4.setMaximumSize(new java.awt.Dimension(0, 0));
         jPanel4.setPreferredSize(new java.awt.Dimension(0, 0));
 
+        jTMsgTemporaryHrl.setForeground(new java.awt.Color(255, 51, 0));
         jTMsgTemporaryHrl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -224,9 +261,9 @@ public class Temporario_Hrl extends javax.swing.JDialog {
                 .addComponent(jTEDVorNameSearchHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPSBadgeHrl.setBackground(new java.awt.Color(255, 255, 255));
@@ -292,6 +329,11 @@ public class Temporario_Hrl extends javax.swing.JDialog {
         jButton5.setFont(new java.awt.Font("Bosch Sans", 0, 18)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Complete");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Bosch Sans", 0, 18)); // NOI18N
         jLabel6.setText("Expiration Time");
@@ -313,7 +355,7 @@ public class Temporario_Hrl extends javax.swing.JDialog {
                                 .addGroup(jPSBadgeHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jTEDVTemporaryHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPSBadgeHrlLayout.createSequentialGroup()
-                                        .addComponent(jTBadgeCodeHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTBadgeCodeHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(jPSBadgeHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel6)
@@ -331,23 +373,24 @@ public class Temporario_Hrl extends javax.swing.JDialog {
             jPSBadgeHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPSBadgeHrlLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(jPSBadgeHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPSBadgeHrlLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCBUnusedTemporaryHrl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPSBadgeHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTEDVTemporaryHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6))
-                    .addComponent(jTBadgeCodeHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCBUnusedTemporaryHrl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPSBadgeHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTEDVTemporaryHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPSBadgeHrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPSBadgeHrlLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTBadgeCodeHrl, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -395,8 +438,8 @@ public class Temporario_Hrl extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         jBBack.setBackground(new java.awt.Color(0, 110, 173));
@@ -413,22 +456,19 @@ public class Temporario_Hrl extends javax.swing.JDialog {
         jPContainer.setLayout(jPContainerLayout);
         jPContainerLayout.setHorizontalGroup(
             jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPContainerLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPContainerLayout.createSequentialGroup()
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPContainerLayout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jPInsertPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPContainerLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPContainerLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jBBack))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPContainerLayout.createSequentialGroup()
+                        .addComponent(jBBack)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPInsertPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)))
                 .addComponent(jPSBadgeHrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPContainerLayout.setVerticalGroup(
             jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,12 +477,13 @@ public class Temporario_Hrl extends javax.swing.JDialog {
                 .addGroup(jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPSBadgeHrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPContainerLayout.createSequentialGroup()
-                        .addComponent(jPInsertPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(31, 31, 31)
+                        .addGroup(jPContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPInsertPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -491,10 +532,15 @@ public class Temporario_Hrl extends javax.swing.JDialog {
     }//GEN-LAST:event_jTBadgeCodeHrlActionPerformed
 
     private void jBBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBackActionPerformed
-        Main_Hrl main = new Main_Hrl(null,true);
+        Main_Hrl main = new Main_Hrl(null, true);
         this.dispose();
         main.setVisible(true);
     }//GEN-LAST:event_jBBackActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        requestTemp();
+        refreshTable();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

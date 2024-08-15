@@ -14,15 +14,26 @@ public class Terceirizado {
     private String nomeCompleto;
     private String empresa;
     private String areaAtuacao;
+    private String locals;
     
-    public Terceirizado(int id, String cpf, String nomeCompleto, String empresa, String areaAtuacao) {
+    public Terceirizado(int id, String cpf, String nomeCompleto, String empresa, String areaAtuacao,String locals){
         this.id = id;
         this.cpf = cpf;
         this.nomeCompleto = nomeCompleto;
         this.empresa = empresa;
         this.areaAtuacao = areaAtuacao;
+        this.locals =  locals;
+        
     }
-
+    
+    public String getLocals(){
+        return locals;
+    }
+    
+    public void setLocals(String locals){
+        this.locals = locals;
+    }
+    
     public int getId() {
         return id;
     }
@@ -62,4 +73,5 @@ public class Terceirizado {
     public void setAreaAtuacao(String areaAtuacao) {
         this.areaAtuacao = areaAtuacao;
     }
+   
 }
